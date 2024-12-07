@@ -1,0 +1,46 @@
+package com.klef.jfsd.exam;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+public class ClientDemo {
+    public static void main(String[] args) {
+        Configuration cfg = new Configuration().configure("hibernate.cfg.xml");
+        SessionFactory factory = cfg.buildSessionFactory();
+        Session session = factory.openSession();
+
+        Transaction transaction = session.beginTransaction();
+
+        // Insert Device record
+        Device device = new Device();
+        device.setBrand("Generic Brand");
+        device.setModel("Model X");
+        device.setPrice(150.00);
+        session.save(device);
+
+        // Insert Smartphone record
+        Smartphone smartphone = new Smartphone();
+        smartphone.setBrand("Samsung");
+        smartphone.setModel("Galaxy S21");
+        smartphone.setPrice(999.99);
+        smartphone.setOperatingSystem("Android");
+        smartphone.setCameraResolution("108MP");
+        session.save(smartphone);
+
+        // Insert Tablet record
+        Tablet tablet = new Tablet();
+        tablet.setBrand("Apple");
+        tablet.setModel("iPad Pro");
+        tablet.setPrice(1099.99);
+        tablet.setScreenSize(12.9);
+        tablet.setBatteryLife(10);
+        session.save(tablet);
+
+        transaction.commit();
+        session.close();
+
+        System.out.println("Records inserted successfully!");
+    }
+}
